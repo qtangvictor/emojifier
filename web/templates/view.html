@@ -1,0 +1,190 @@
+<html>
+   <head>
+     <title>Emojifier (Qian Tang AI)</title>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	 <script type="text/javascript">
+	 	$(document).ready(function() {	 		
+	 		$('form').on('submit', function(event) {
+	 			event.preventDefault();
+	 			$("#greeting").text('Please wait...');
+	 			$.ajax({
+	 				type : 'POST',
+					url : '/predict',
+					data: $(this).serialize(),
+					success:function(response,status){
+						console.log(response);
+						if(response.prediction == 0)
+							{
+								$("#greeting").text("🙂" + " Joy");
+							}
+						else if(response.prediction == 1)
+							{
+								$("#greeting").text("😨" + " Fear");
+							}
+						else if(response.prediction == 2)
+							{
+								$("#greeting").text("😠" + " Anger");
+							}
+						else if(response.prediction == 3)
+							{
+								$("#greeting").text("😥" + " Sadness");
+							}
+						else if(response.prediction == 4)
+							{
+								$("#greeting").text("😖" + " Disgust");
+							}
+						else if(response.prediction == 5)
+							{
+								$("#greeting").text("😞" + " Shame");
+							}
+						else if(response.prediction == 6)
+							{
+								$("#greeting").text("😰" + " Guilt");
+							}
+					},
+	 			});
+	 			
+
+	 		});
+
+	 		$('.code').click(function(){
+
+	 			$('#area1').val($(this).text());
+	 			$('#bt1').trigger("click");
+	 		})
+	 	});
+	 	</script>
+	 	<style type="text/css">
+	 		.header{
+	 			color: white;
+	 			text-align: center;
+	 			background-color:#0B0B3B;
+	 			padding-top: 5px;
+	 			padding-bottom: 5px;
+	 			font-size: 1.5em;
+	 			
+	 		}
+
+	 		.intro{
+	 			text-align: center;
+	 			position: relative;
+	 			top: 30px;
+	 			font-size: 20px;
+	 		}
+
+	 		.input_form{
+	 			text-align: center;
+	 			position: relative;
+	 			top: 30px;			 
+	 		}
+
+	 		#area1{
+	 			background-color: #c9b8cc;
+	 			resize: none;
+	 			font-size: 18px;
+	 		}
+	 		#bt1{
+	 			position: relative;
+	 			bottom: 20px;
+	 			left: 20px;
+	 			width: 80px;
+	 			height: 40px;
+	 			background-color: white;
+	 			border-color: #c9b8cc;
+	 			font-size: 20px;
+	 			border-style: solid;
+	 		}
+	 		#bt1:hover{
+	 			background-color: #c9b8cc; 
+	 			color: white;
+	 		}
+	 		.example{
+	 			position: relative;
+	 			left: 30%;
+	 			top:20px;
+	 		}
+
+	 		.examples-list{
+	 			list-style-type: none;
+	 			color: black;
+	 			padding: 0;
+
+
+
+	 		}
+	 		.examples-item{
+	 			margin: 15px;
+	 		}
+	 		
+
+	 		.examples-link{
+	 			background-color: #c9b8cc;
+	 			opacity: 0.7;
+	 			padding: 5px;
+	 			font-size: 15px;	
+
+	 		}
+	 		.examples-link:hover{
+	 			opacity: 1;
+	 		}
+
+	 		a{
+	 			text-decoration: none;
+	 			color: black;
+	 		}
+
+	 		#greeting{
+	 			position: relative;
+	 			top: 40px;
+	 			left: 50%;
+	 			font-size: 30px;
+	 			border-style: none;
+	 			resize: none;
+	 		}
+
+	
+
+	 	</style>
+	 
+   </head>
+   <body>
+   	  <section class="header">
+   	  	<h1>Emojifier - Text to Emoji Converter</h1>
+   	  </section>
+   	  <section class='intro'>
+   	  	<div>
+   	  		<p>Emojifier has learned to understand emotions based on training text. Type a sentence to see what out AI algorithm thinks.</p>
+   	  	</div>
+   	  </section>
+
+   	  <section class="input_form">
+   	  	<form>
+         <textarea id='area1' rows='5' cols='80' name = "input_text" placeholder="Type something..."></textarea>
+         <input id='bt1' type = "submit" value = "submit" />
+      	</form>
+   	  </section>
+
+   	  <section class="example">
+   	  	<h2>Examples</h2>
+   	  	<p>Click on one!</p>
+   	  	<ul class="examples-list">
+   	  			<li class="examples-item"><a class="code examples-link" href="#">Would you like to go shopping with me this afternoon?</a></li> 
+                <li class="examples-item"><a class="code examples-link" href="#">I witnessed a terrible car accident that killed several guys.</a></li> 
+                <li class="examples-item"><a class="code examples-link" href="#">You love hurting me, huh?</a></li>                   
+                <li class="examples-item"><a class="code examples-link" href="#">I am so sorry for your loss.</a></li>              
+                <li class="examples-item"><a class="code examples-link" href="#">His behavior makes me sick!</a></li> 
+                <li class="examples-item"><a class="code examples-link" href="#">I wish I have never done it to you.</a></li>                
+                <li class="examples-item"><a class="code examples-link" href="#">I should have worked harder to not let my mom down.</a></li>                       
+        </ul>
+
+   	  </section>
+
+
+      <section class="response">
+      	 <textarea id="greeting">
+
+	  	 </textarea>
+      </section>   
+     
+   </body>
+</html>
